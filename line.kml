@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <kml>
     <Document>
-        <name>РўСЂРµРє</name>
+        <name>Track_line</name>
         <Style id="s_ylw-pushpin">
             <LineStyle>
                 <color>ff0000aa</color>

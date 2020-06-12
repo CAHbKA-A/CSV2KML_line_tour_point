@@ -1,9 +1,8 @@
 
-//геренит слой клиентов из цсв
+//геренит точек из цсв
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -39,7 +38,6 @@ public class Points {
 
         Element Documen=doc.createElement("Document");
         KmlElement.appendChild(Documen);
-       // Documen.appendChild(doc.createTextNode( "Точки"));
 
         //задаем стиль сот
         Element Style=doc.createElement("Style");
@@ -61,16 +59,13 @@ public class Points {
         StylePoint.appendChild(IconStyle);
         Documen.appendChild(StylePoint);
 
-
-
-        Element FolderElement = null;
         Element GFolderElement;
         GFolderElement=doc.createElement("Folder");
         KmlElement.appendChild(Documen);
         Documen.appendChild(GFolderElement);
 
         Element NameGF=doc.createElement("name");
-        NameGF.appendChild(doc.createTextNode( "Точки"));
+        NameGF.appendChild(doc.createTextNode( "Points"));
         GFolderElement.appendChild(NameGF);
         Element open=doc.createElement("open");
         open.appendChild(doc.createTextNode("0"));
@@ -81,10 +76,12 @@ public class Points {
         String sourseFileName = "Dots.csv";
         BufferedReader reader = new BufferedReader (new FileReader(sourseFileName));
         String line = null;
-        String addres_client,ClientName;
+        String ClientName;
         int lines=0;
         String[] stroka;
         Element Placemark ;
+        String lat;
+        String lon;
         while ( (line = reader.readLine()) != null )  //чтение построчно
         {
             lines=lines+1;
@@ -94,12 +91,6 @@ public class Points {
                 //выдераем из каждой строчки  данные
                 stroka = line.split(";");
 
-
-
-
-
-                String lat;
-                String lon;
                 ClientName =stroka[0];// по строчкам, пока не закончится
                 lat=stroka[1];
                 lon=stroka[2];
@@ -125,15 +116,9 @@ public class Points {
             }
 
 
-
-
-        } //конец списка клиентов
-
+        } //конец списка
 
         doc.appendChild(KmlElement);
-
-
-
 
 
 //сохраняем кмл
@@ -149,5 +134,5 @@ public class Points {
         outs.close();
         reader.close(); //закрываем ф-л
         System.out.println ("Done3");
-        //return "Done";
+
     }}

@@ -1,9 +1,8 @@
 
-//геренит слой клиентов из цсв
+//геренит видеотур
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -15,7 +14,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Line {
+public class Tour {
 
 
     static DocumentBuilder builder;
@@ -37,7 +36,6 @@ public class Line {
         KmlElement.setAttribute("xmlns:atom", "http://www.w3.org/2005/Atom");
         //создаем кмл
 
-
         Element FlyTo;
         Element TourElement;
         Element LookAt;
@@ -46,21 +44,20 @@ public class Line {
         TourElement=doc.createElement("gx:Tour");
         KmlElement.appendChild(TourElement);
         Element NameGF=doc.createElement("name");
-        NameGF.appendChild(doc.createTextNode( "Трек"));
+        NameGF.appendChild(doc.createTextNode( "VideoTour"));
         TourElement.appendChild(NameGF);
 
         Playlist=doc.createElement("gx:Playlist");
         TourElement.appendChild(Playlist);
 
 
-
-
         String sourseFileName = "Dots.csv";
         BufferedReader reader = new BufferedReader (new FileReader(sourseFileName));
         String line = null;
-        String addres_client,ClientName;
-        int lines=0;
+       int lines=0;
         String[] stroka;
+        String lat;
+        String lon;
         while ( (line = reader.readLine()) != null )  //чтение построчно
         {
             lines=lines+1;
@@ -71,17 +68,6 @@ public class Line {
                 stroka = line.split(";");
 
 
-
-
-
-                String lat;
-                String lon;
-
-                //lat=(float) 52.259309; lon = (float) 104.285561;// (на случай если  в не определятся коор-ты)
-                lat="52.259309"; lon = "104.285561" ;// (на случай если  в не определятся коор-ты)
-                addres_client   = stroka[1];
-
-                ClientName =stroka[0];// по строчкам, пока не закончится
                 lat=stroka[1];
                 lon=stroka[2];
 
@@ -96,7 +82,6 @@ public class Line {
                 flyToMode.appendChild(doc.createTextNode("smooth"));
                 FlyTo.appendChild(flyToMode);
                 LookAt=doc.createElement("LookAt");
-                //  LookAt.appendChild(doc.createTextNode(ClientName));
                 FlyTo.appendChild(LookAt);
 
 
@@ -120,14 +105,10 @@ public class Line {
 
 
 
-        } //конец списка клиентов
+        } //конец списка
 
         TourElement.appendChild(Playlist);
-
         doc.appendChild(KmlElement);
-
-
-
 
 
 //сохраняем кмл

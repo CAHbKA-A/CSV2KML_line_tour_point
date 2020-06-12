@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException, TransformerException {
-    Line line = new Line();
+    Tour line = new Tour();
     line.main(args);
     Track track = new Track();
     track.main(args);
