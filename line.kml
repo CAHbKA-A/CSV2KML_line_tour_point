@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <kml>
-    <Document>
-        <name>Track_line</name>
-        <Style id="s_ylw-pushpin">
-            <LineStyle>
-                <color>ff0000aa</color>
-                <width>3</width>
-            </LineStyle>
-        </Style>
-        <StyleMap id="m_ylw-pushpin">
-            <Pair>
-                <styleUrl>#s_ylw-pushpin</styleUrl>
-            </Pair>
-        </StyleMap>
-        <Placemark>
-            <styleUrl>#m_ylw-pushpin</styleUrl>
-            <LineString>
-                <tessellate>1</tessellate>
-                <coordinates> 104.2935169420018,52.30679966373008,0 104.2994714863906,52.30144083711977,0 104.2844978200699,52.29263318854802,0 104.2844978200699,52.28966264103187,0 104.283994703149,52.28053128888585,0 104.3278335452153,52.257828865773598,0 104.3431908723629,52.25436056285314,0 104.314639486382,52.23317739661045,0 104.3047579576354,52.22518062864756,0 104.3044191656238,52.2153032582157,0 104.2946909015597,52.21571329581754,0</coordinates>
-            </LineString>
-        </Placemark>
-    </Document>
+<Document>
+<name>Track_line</name>
+<Style id="s_ylw-pushpin">
+<LineStyle>
+<color>ff0000aa</color>
+<width>3</width>
+</LineStyle>
+</Style>
+<StyleMap id="m_ylw-pushpin">
+<Pair>
+<styleUrl>#s_ylw-pushpin</styleUrl>
+</Pair>
+</StyleMap>
+<Placemark>
+<styleUrl>#m_ylw-pushpin</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates> 104.2935169420018,52.30679966373008,0 104.2994714863906,52.30144083711977,0 104.2844978200699,52.29263318854802,0 104.2844978200699,52.28966264103187,0 104.283994703149,52.28053128888585,0 104.3278335452153,52.257828865773598,0 104.3431908723629,52.25436056285314,0 104.314639486382,52.23317739661045,0 104.3047579576354,52.22518062864756,0 104.3044191656238,52.2153032582157,0 104.2946909015597,52.21571329581754,0</coordinates>
+</LineString>
+</Placemark>
+</Document>
 </kml>
