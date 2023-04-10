@@ -83,24 +83,7 @@ public class Track {
         String lomanaya = "";
         String lat;
         String lon;
-        while ( (line = reader.readLine()) != null )  //чтение построчно
-        {
-            lines=lines+1;
-            if  (lines != 1)//первую строку пропускаем)
-            {
-
-                //выдераем из каждой строчки  данные
-                stroka = line.split(";");
-                lat=stroka[1];
-                lon=stroka[2];
-                lomanaya = lomanaya +" " +lon +","+lat+",0";
-
-            }
-
-
-
-
-        } //конец списка
+        lomanaya = getPointsFromCSV(reader, lines, lomanaya);
         LineString.appendChild(coordinates);
         coordinates.appendChild(doc.createTextNode( lomanaya));
 
@@ -118,4 +101,31 @@ public class Track {
         outs.close();
         reader.close(); //закрываем ф-л
         System.out.println ("Done2");
-    }}
+    }
+
+    private static String getPointsFromCSV(BufferedReader reader, int lines, String lomanaya) throws IOException {
+        String[] stroka;
+        String line;
+        String lat;
+        String lon;
+        while ( (line = reader.readLine()) != null )  //чтение построчно
+        {
+            lines = lines +1;
+            if  (lines != 1)//первую строку пропускаем)
+            {
+
+                //выдераем из каждой строчки  данные
+                stroka = line.split(";");
+                lat=stroka[1];
+                lon=stroka[2];
+                lomanaya = lomanaya +" " +lon +","+lat+",0";
+
+            }
+
+
+
+
+        } //конец списка
+        return lomanaya;
+    }
+}
