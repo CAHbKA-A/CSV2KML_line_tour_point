@@ -82,41 +82,7 @@ public class Points {
         Element Placemark ;
         String lat;
         String lon;
-        while ( (line = reader.readLine()) != null )  //чтение построчно
-        {
-            lines=lines+1;
-            if  (lines != 1)//первую строку пропускаем)
-            {
-
-                //выдераем из каждой строчки  данные
-                stroka = line.split(";");
-
-                ClientName =stroka[0];// по строчкам, пока не закончится
-                lat=stroka[1];
-                lon=stroka[2];
-
-
-
-                Placemark=doc.createElement("Placemark");
-                Element PlacemarkName = doc.createElement("name");
-                PlacemarkName.appendChild(doc.createTextNode(ClientName));
-                Placemark.appendChild(PlacemarkName);
-                GFolderElement.appendChild(Placemark);
-
-                //применяем стиль для клиента
-                Element styleUrl=doc.createElement("styleUrl");
-                styleUrl.appendChild(doc.createTextNode("Client_icon"));
-                Placemark.appendChild(styleUrl);
-                Element Point =doc.createElement("Point");
-                Element coordinates = doc.createElement("coordinates");
-                coordinates.appendChild(doc.createTextNode(lon+","+lat+",0"));
-                Point.appendChild(coordinates);
-                Placemark.appendChild(Point);
-
-            }
-
-
-        } //конец списка
+        getDotsFromCSV(doc, GFolderElement, reader, lines);
 
         doc.appendChild(KmlElement);
 
@@ -135,4 +101,49 @@ public class Points {
         reader.close(); //закрываем ф-л
         System.out.println ("Done3");
 
-    }}
+    }
+
+    private static void getDotsFromCSV(Document doc, Element GFolderElement, BufferedReader reader, int lines) throws IOException {
+        String[] stroka;
+        String line;
+        String ClientName;
+        String lon;
+        Element Placemark;
+        String lat;
+        while ( (line = reader.readLine()) != null )  //чтение построчно
+        {
+            lines = lines +1;
+            if  (lines != 1)//первую строку пропускаем)
+            {
+
+                //выдераем из каждой строчки  данные
+                stroka = line.split(";");
+
+                ClientName =stroka[0];// по строчкам, пока не закончится
+                lat=stroka[1];
+                lon=stroka[2];
+
+
+
+                Placemark= doc.createElement("Placemark");
+                Element PlacemarkName = doc.createElement("name");
+                PlacemarkName.appendChild(doc.createTextNode(ClientName));
+                Placemark.appendChild(PlacemarkName);
+                GFolderElement.appendChild(Placemark);
+
+                //применяем стиль для клиента
+                Element styleUrl= doc.createElement("styleUrl");
+                styleUrl.appendChild(doc.createTextNode("Client_icon"));
+                Placemark.appendChild(styleUrl);
+                Element Point = doc.createElement("Point");
+                Element coordinates = doc.createElement("coordinates");
+                coordinates.appendChild(doc.createTextNode(lon+","+lat+",0"));
+                Point.appendChild(coordinates);
+                Placemark.appendChild(Point);
+
+            }
+
+
+        } //конец списка
+    }
+}

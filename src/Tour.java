@@ -58,9 +58,35 @@ public class Tour {
         String[] stroka;
         String lat;
         String lon;
+        getPoinsFromCSV(doc, Playlist, reader, lines);
+
+        TourElement.appendChild(Playlist);
+        doc.appendChild(KmlElement);
+
+
+//сохраняем кмл
+        Transformer t= TransformerFactory.newInstance().newTransformer();
+        t.setOutputProperty(OutputKeys.METHOD, "xml");
+        t.setOutputProperty(OutputKeys.INDENT, "yes");
+        FileOutputStream outs = new FileOutputStream("Tour.kml");
+        t.transform(new DOMSource(doc), new StreamResult(outs));
+
+        outs.close();
+        reader.close(); //закрываем ф-л
+        System.out.println ("Done1");
+
+    }
+
+    private static void getPoinsFromCSV(Document doc, Element Playlist, BufferedReader reader, int lines) throws IOException {
+        String lat;
+        String[] stroka;
+        String lon;
+        String line;
+        Element LookAt;
+        Element FlyTo;
         while ( (line = reader.readLine()) != null )  //чтение построчно
         {
-            lines=lines+1;
+            lines = lines +1;
             if  (lines != 1)//первую строку пропускаем)
             {
 
@@ -72,7 +98,7 @@ public class Tour {
                 lon=stroka[2];
 
 
-                FlyTo=doc.createElement("gx:FlyTo");
+                FlyTo= doc.createElement("gx:FlyTo");
                 Playlist.appendChild(FlyTo);
                 //	имя
                 Element duration2 = doc.createElement("gx:duration");
@@ -81,7 +107,7 @@ public class Tour {
                 Element flyToMode = doc.createElement("gx:flyToMode");
                 flyToMode.appendChild(doc.createTextNode("smooth"));
                 FlyTo.appendChild(flyToMode);
-                LookAt=doc.createElement("LookAt");
+                LookAt= doc.createElement("LookAt");
                 FlyTo.appendChild(LookAt);
 
 
@@ -106,20 +132,5 @@ public class Tour {
 
 
         } //конец списка
-
-        TourElement.appendChild(Playlist);
-        doc.appendChild(KmlElement);
-
-
-//сохраняем кмл
-        Transformer t= TransformerFactory.newInstance().newTransformer();
-        t.setOutputProperty(OutputKeys.METHOD, "xml");
-        t.setOutputProperty(OutputKeys.INDENT, "yes");
-        FileOutputStream outs = new FileOutputStream("Tour.kml");
-        t.transform(new DOMSource(doc), new StreamResult(outs));
-
-        outs.close();
-        reader.close(); //закрываем ф-л
-        System.out.println ("Done1");
-
-    }}
+    }
+}
