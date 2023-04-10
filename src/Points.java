@@ -7,11 +7,9 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 import java.io.BufferedReader;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -40,52 +38,47 @@ public class Points {
         KmlElement.setAttribute("xmlns:atom", "http://www.w3.org/2005/Atom");
         //создаем кмл
 
-        Element Documen = doc.createElement("Document");
-        KmlElement.appendChild(Documen);
+        Element document = doc.createElement("Document");
+        KmlElement.appendChild(document);
 
         //задаем стиль сот
         Element Style = doc.createElement("Style");
-        Documen.appendChild(Style);
+        document.appendChild(Style);
 
         //Значек
-        Element StylePoint = doc.createElement("Style");
-        StylePoint.setAttribute("id", "Client_icon");
-        Element IconStyle = doc.createElement("IconStyle");
+        Element stylePoint = doc.createElement("Style");
+        stylePoint.setAttribute("id", "Client_icon");
+        Element iconStyle = doc.createElement("IconStyle");
         Element scale = doc.createElement("scale");
         scale.appendChild(doc.createTextNode("0.5"));
-        StylePoint.appendChild(scale);
+        stylePoint.appendChild(scale);
         Element icon = doc.createElement("Icon");
         Element href = doc.createElement("href");
         href.appendChild(doc.createTextNode("http://maps.google.com/mapfiles/kml/shapes/target.png"));
         icon.appendChild(href);
-        IconStyle.appendChild(scale);
-        IconStyle.appendChild(icon);
-        StylePoint.appendChild(IconStyle);
-        Documen.appendChild(StylePoint);
+        iconStyle.appendChild(scale);
+        iconStyle.appendChild(icon);
+        stylePoint.appendChild(iconStyle);
+        document.appendChild(stylePoint);
 
-        Element GFolderElement;
-        GFolderElement = doc.createElement("Folder");
-        KmlElement.appendChild(Documen);
-        Documen.appendChild(GFolderElement);
+        Element gFolderElement;
+        gFolderElement = doc.createElement("Folder");
+        KmlElement.appendChild(document);
+        document.appendChild(gFolderElement);
 
-        Element NameGF = doc.createElement("name");
-        NameGF.appendChild(doc.createTextNode("Points"));
-        GFolderElement.appendChild(NameGF);
+        Element nameGF = doc.createElement("name");
+        nameGF.appendChild(doc.createTextNode("Points"));
+        gFolderElement.appendChild(nameGF);
         Element open = doc.createElement("open");
         open.appendChild(doc.createTextNode("0"));
-        GFolderElement.appendChild(open);
+        gFolderElement.appendChild(open);
 
 
-        String sourseFileName = "Dots.csv";
-        BufferedReader reader = new BufferedReader(new FileReader(sourseFileName));
-        String line = null;
-        String ClientName;
+        String sourceFileName = "Dots.csv";
+        BufferedReader reader = new BufferedReader(new FileReader(sourceFileName));
         int lines = 0;
-        String[] stroka;
-        Element Placemark;
-        String lat;
-        String lon;
-        getDotsFromCSV(doc, GFolderElement, reader, lines);
+
+        getDotsFromCSV(doc, gFolderElement, reader, lines);
 
         doc.appendChild(KmlElement);
         reader.close(); //закрываем ф-л
@@ -97,11 +90,10 @@ public class Points {
     }
 
     private static void getDotsFromCSV(Document doc, Element GFolderElement, BufferedReader reader, int lines) throws IOException {
-        String[] stroka;
+        String[] StringLine;
         String line;
         String ClientName;
         String lon;
-        Element Placemark;
         String lat;
         while ((line = reader.readLine()) != null)  //чтение построчно
         {
@@ -110,11 +102,11 @@ public class Points {
             {
 
                 //выдераем из каждой строчки  данные
-                stroka = line.split(";");
+                StringLine = line.split(";");
 
-                ClientName = stroka[0];// по строчкам, пока не закончится
-                lat = stroka[1];
-                lon = stroka[2];
+                ClientName = StringLine[0];// по строчкам, пока не закончится
+                lat = StringLine[1];
+                lon = StringLine[2];
 
 
                 dotsToXML(doc, GFolderElement, ClientName, lon, lat);

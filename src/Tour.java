@@ -40,31 +40,26 @@ public class Tour {
         KmlElement.setAttribute("xmlns:atom", "http://www.w3.org/2005/Atom");
         //создаем кмл
 
-        Element FlyTo;
-        Element TourElement;
-        Element LookAt;
-        Element GFolderElement;
+        Element tourElement;
         Element Playlist;
-        TourElement = doc.createElement("gx:Tour");
-        KmlElement.appendChild(TourElement);
-        Element NameGF = doc.createElement("name");
-        NameGF.appendChild(doc.createTextNode("VideoTour"));
-        TourElement.appendChild(NameGF);
+        tourElement = doc.createElement("gx:Tour");
+        KmlElement.appendChild(tourElement);
+        Element nameGF = doc.createElement("name");
+        nameGF.appendChild(doc.createTextNode("VideoTour"));
+        tourElement.appendChild(nameGF);
 
         Playlist = doc.createElement("gx:Playlist");
-        TourElement.appendChild(Playlist);
+        tourElement.appendChild(Playlist);
 
 
         String sourseFileName = "Dots.csv";
         BufferedReader reader = new BufferedReader(new FileReader(sourseFileName));
         String line = null;
         int lines = 0;
-        String[] stroka;
-        String lat;
-        String lon;
+
         getPoinsFromCSV(doc, Playlist, reader, lines);
 
-        TourElement.appendChild(Playlist);
+        tourElement.appendChild(Playlist);
         doc.appendChild(KmlElement);
         reader.close(); //закрываем ф-л
 
@@ -80,8 +75,7 @@ public class Tour {
         String[] stroka;
         String lon;
         String line;
-        Element LookAt;
-        Element FlyTo;
+
         while ((line = reader.readLine()) != null)  //чтение построчно
         {
             lines = lines + 1;
@@ -104,19 +98,19 @@ public class Tour {
     }
 
     private static void dotToKml(Document doc, Element Playlist, String lat, String lon) {
-        Element LookAt;
-        Element FlyTo;
-        FlyTo = doc.createElement("gx:FlyTo");
-        Playlist.appendChild(FlyTo);
+        Element lookAt;
+        Element flyTo;
+        flyTo = doc.createElement("gx:FlyTo");
+        Playlist.appendChild(flyTo);
         //	имя
         Element duration2 = doc.createElement("gx:duration");
         duration2.appendChild(doc.createTextNode("2"));
-        FlyTo.appendChild(duration2);
+        flyTo.appendChild(duration2);
         Element flyToMode = doc.createElement("gx:flyToMode");
         flyToMode.appendChild(doc.createTextNode("smooth"));
-        FlyTo.appendChild(flyToMode);
-        LookAt = doc.createElement("LookAt");
-        FlyTo.appendChild(LookAt);
+        flyTo.appendChild(flyToMode);
+        lookAt = doc.createElement("LookAt");
+        flyTo.appendChild(lookAt);
 
 
         Element coordinatesDisc = doc.createElement("longitude");
@@ -126,9 +120,9 @@ public class Tour {
         Element range = doc.createElement("range");
         range.appendChild(doc.createTextNode("600"));
 
-        LookAt.appendChild(coordinatesDisc);
-        LookAt.appendChild(coordinatesDisc2);
-        LookAt.appendChild(range);
+        lookAt.appendChild(coordinatesDisc);
+        lookAt.appendChild(coordinatesDisc2);
+        lookAt.appendChild(range);
         Element Wait = doc.createElement("gx:Wait");
         Element duration = doc.createElement("gx:duration");
         duration.appendChild(doc.createTextNode("3"));

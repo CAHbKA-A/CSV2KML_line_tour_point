@@ -7,11 +7,9 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 import java.io.BufferedReader;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -69,28 +67,24 @@ public class Track {
         Placemark = doc.createElement("Placemark");
         Document.appendChild(Placemark);
         //применяем стиль
-        Element StyleSet = doc.createElement("styleUrl");
-        StyleSet.appendChild(doc.createTextNode("#m_ylw-pushpin"));
-        Placemark.appendChild(StyleSet);
+        Element styleSet = doc.createElement("styleUrl");
+        styleSet.appendChild(doc.createTextNode("#m_ylw-pushpin"));
+        Placemark.appendChild(styleSet);
         //сама линия
-        Element LineString = doc.createElement("LineString");
-        Placemark.appendChild(LineString);
+        Element lineString = doc.createElement("LineString");
+        Placemark.appendChild(lineString);
         Element tessellate = doc.createElement("tessellate");
         tessellate.appendChild(doc.createTextNode("1"));
-        LineString.appendChild(tessellate);
+        lineString.appendChild(tessellate);
         Element coordinates = doc.createElement("coordinates");
 
 
-        String sourseFileName = "Dots.csv";
-        BufferedReader reader = new BufferedReader(new FileReader(sourseFileName));
-        String line = null;
+        String sourceFileName = "Dots.csv";
+        BufferedReader reader = new BufferedReader(new FileReader(sourceFileName));
         int lines = 0;
-     //   String[] stroka;
         String lomanaya = "";
-        String lat;
-        String lon;
         lomanaya = getPointsFromCSV(reader, lines, lomanaya);
-        LineString.appendChild(coordinates);
+        lineString.appendChild(coordinates);
         coordinates.appendChild(doc.createTextNode(lomanaya));
 
         doc.appendChild(KmlElement);
