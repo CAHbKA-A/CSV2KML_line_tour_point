@@ -31,15 +31,15 @@ public class Points {
 
         Document doc = builder.newDocument();
 
-        Element KmlElement = doc.createElement("kml");
-        KmlElement.setAttribute("xmlns", "http://www.opengis.net/kml/2.2");
-        KmlElement.setAttribute("xmlns:gx", "hhttp://www.google.com/kml/ext/2.2");
-        KmlElement.setAttribute("xmlns:kml", "http://www.opengis.net/kml/2.2");
-        KmlElement.setAttribute("xmlns:atom", "http://www.w3.org/2005/Atom");
+        Element kmlElement = doc.createElement("kml");
+        kmlElement.setAttribute("xmlns", "http://www.opengis.net/kml/2.2");
+        kmlElement.setAttribute("xmlns:gx", "hhttp://www.google.com/kml/ext/2.2");
+        kmlElement.setAttribute("xmlns:kml", "http://www.opengis.net/kml/2.2");
+        kmlElement.setAttribute("xmlns:atom", "http://www.w3.org/2005/Atom");
         //создаем кмл
 
         Element document = doc.createElement("Document");
-        KmlElement.appendChild(document);
+        kmlElement.appendChild(document);
 
         //задаем стиль сот
         Element Style = doc.createElement("Style");
@@ -63,7 +63,7 @@ public class Points {
 
         Element gFolderElement;
         gFolderElement = doc.createElement("Folder");
-        KmlElement.appendChild(document);
+        kmlElement.appendChild(document);
         document.appendChild(gFolderElement);
 
         Element nameGF = doc.createElement("name");
@@ -80,7 +80,7 @@ public class Points {
 
         getDotsFromCSV(doc, gFolderElement, reader, lines);
 
-        doc.appendChild(KmlElement);
+        doc.appendChild(kmlElement);
         reader.close(); //закрываем ф-л
 
         new KmlSaver().save(doc, "Points");

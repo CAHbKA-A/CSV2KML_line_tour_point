@@ -3,15 +3,11 @@
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.BufferedReader;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -33,17 +29,17 @@ public class Tour {
 
         Document doc = builder.newDocument();
 
-        Element KmlElement = doc.createElement("kml");
-        KmlElement.setAttribute("xmlns", "http://www.opengis.net/kml/2.2");
-        KmlElement.setAttribute("xmlns:gx", "hhttp://www.google.com/kml/ext/2.2");
-        KmlElement.setAttribute("xmlns:kml", "http://www.opengis.net/kml/2.2");
-        KmlElement.setAttribute("xmlns:atom", "http://www.w3.org/2005/Atom");
+        Element kmlElement = doc.createElement("kml");
+        kmlElement.setAttribute("xmlns", "http://www.opengis.net/kml/2.2");
+        kmlElement.setAttribute("xmlns:gx", "hhttp://www.google.com/kml/ext/2.2");
+        kmlElement.setAttribute("xmlns:kml", "http://www.opengis.net/kml/2.2");
+        kmlElement.setAttribute("xmlns:atom", "http://www.w3.org/2005/Atom");
         //создаем кмл
 
         Element tourElement;
         Element Playlist;
         tourElement = doc.createElement("gx:Tour");
-        KmlElement.appendChild(tourElement);
+        kmlElement.appendChild(tourElement);
         Element nameGF = doc.createElement("name");
         nameGF.appendChild(doc.createTextNode("VideoTour"));
         tourElement.appendChild(nameGF);
@@ -60,7 +56,7 @@ public class Tour {
         getPoinsFromCSV(doc, Playlist, reader, lines);
 
         tourElement.appendChild(Playlist);
-        doc.appendChild(KmlElement);
+        doc.appendChild(kmlElement);
         reader.close(); //закрываем ф-л
 
 //сохраняем кмл
